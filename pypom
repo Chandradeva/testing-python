@@ -1,0 +1,26 @@
+from pypom import Page
+
+class Chrome(Page):
+    URL_TEMPLATE = '/hpesc/public/home'
+
+    @property
+    def loaded(self):
+        return self.seed_url in self.driver.current_url
+
+    _result_locator = (By.XPATH, "//*[@id='searchbox']/div[1]/div[3]/div[3]/div[1]/input")
+
+    @property
+    def results(self):
+        return [
+            self.find_elements(*self._result_locator)]
+
+
+
+    pass
+#driver = Chrome()
+#page = Chrome(driver)
+base_url = "https://accounts.google.com"
+page = Chrome(driver, base_url, locale='de').open()
+
+print(page.results())
+
